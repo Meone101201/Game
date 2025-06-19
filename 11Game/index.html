@@ -1,1 +1,227 @@
+<!DOCTYPE html>
+<html lang="th">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 + 1 Games in 1</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- ใส่ไอคอนตรงแท็บ -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+
+<body>
+    <header>
+        <h1 style="text-align: center; margin: 20px 0;">10 + 1 Games in 1</h1>
+        <nav id="game-nav">
+            <button class="nav-button active" data-game="connect-four">Connect Four</button>
+            <button class="nav-button" data-game="dots-and-boxes">Dots and Boxes</button>
+            <button class="nav-button" data-game="nim">Nim Game</button>
+            <button class="nav-button" data-game="memory">Memory Game</button>
+            <button class="nav-button" data-game="mancala">Mancala</button>
+            <button class="nav-button" data-game="sudoku">Sudoku 9x9</button>
+            <button class="nav-button" data-game="simon">Simon Says</button>
+            <button class="nav-button" data-game="rps">Rock Paper Scissors</button>
+            <button class="nav-button" data-game="othello">Othello</button>
+            <button class="nav-button" data-game="lightsout">Lights Out</button>
+            <button style="
+    height: 40px;
+    width: 40px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    border: none;
+    border-radius: 6px;
+    cursor: default;
+">+</button>
+
+            <button class="nav-button" data-game="tic-tac-toe">Tic Tac Toe</button>
+        </nav>
+    </header>
+
+    <main id="game-container">
+        <!-- Connect Four -->
+        <div id="connect-four-game" class="game-content">
+            <h2>Connect Four</h2>
+            <div id="connect-four-status" class="status-bar">Player 1's Turn</div>
+            <div id="connect-four-board"></div>
+            <button id="connect-four-reset-button">Reset Game</button>
+        </div>
+
+        <!-- Dots and Boxes -->
+        <div id="dots-and-boxes-game" class="game-content hidden">
+            <h2>Dots and Boxes</h2>
+            <div id="dots-and-boxes-status" class="status-bar">Player 1's Turn</div>
+            <div id="dots-and-boxes-board">
+                <!-- กระดานจะถูกสร้างโดย JavaScript -->
+            </div>
+            <button id="dots-and-boxes-reset-button">Reset Game</button>
+        </div>
+
+        <!-- Nim Game -->
+        <div id="nim-game" class="game-content hidden">
+            <h2>Nim Game</h2>
+            <div id="nim-status" class="status-bar">Select a pile to start.</div>
+            <div id="nim-piles-container">
+                <!-- สร้างโดย JavaScript -->
+            </div>
+            <div id="nim-controls">
+                <label for="nim-take-input">Items to take:</label>
+                <div class="nim-input-wrapper">
+                    <button type="button" class="nim-amount-btn" id="nim-decrease">−</button>
+                    <input type="number" id="nim-take-input" min="1" value="1">
+                    <button type="button" class="nim-amount-btn" id="nim-increase">+</button>
+                </div>
+                <button id="nim-take-button">Take</button>
+            </div>
+            <button id="nim-reset-button">Reset Game</button>
+        </div>
+
+        <!-- Memory Game -->
+        <div id="memory-game" class="game-content hidden">
+            <h2>Memory Game</h2>
+            <div id="memory-status" class="status-bar">Moves: 0</div>
+            <div id="memory-board">
+                <!-- การ์ดจะถูกสร้างโดย JavaScript -->
+            </div>
+            <button id="memory-reset-button">Reset Game</button>
+        </div>
+
+        <!-- Mancala Game -->
+        <div id="mancala-game" class="game-content hidden">
+            <h2>Mancala</h2>
+            <div id="mancala-status" class="status-bar">Player 1's Turn</div>
+            <div id="mancala-board">
+                <div id="mancala-store-2" class="mancala-store">0</div>
+                <div class="mancala-pits-container">
+                    <div id="mancala-pits-2" class="mancala-pit-row">
+                        <!-- Pits 12 down to 7 -->
+                    </div>
+                    <div id="mancala-pits-1" class="mancala-pit-row">
+                        <!-- Pits 0 up to 5 -->
+                    </div>
+                </div>
+                <div id="mancala-store-1" class="mancala-store">0</div>
+            </div>
+            <button id="mancala-reset-button">Reset Game</button>
+        </div>
+
+        <!-- Sudoku Game -->
+        <div id="sudoku-game" class="game-content hidden">
+            <h2>Sudoku 9x9</h2>
+            <div id="sudoku-status" class="status-bar">Select a number and fill the board.</div>
+            <div id="sudoku-board"></div>
+            <div id="sudoku-palette"></div>
+            <div class="sudoku-controls">
+                <button id="sudoku-check-button">Check Solution</button>
+                <button id="sudoku-reset-button">New Puzzle</button>
+            </div>
+        </div>
+
+        <!-- Simon Says Game -->
+        <div id="simon-game" class="game-content hidden">
+            <h2>Simon Says</h2>
+            <div id="simon-status" class="status-bar">Press Start to Play</div>
+            <div id="simon-buttons-container">
+                <div class="simon-button green" data-color="0"></div>
+                <div class="simon-button red" data-color="1"></div>
+                <div class="simon-button yellow" data-color="2"></div>
+                <div class="simon-button blue" data-color="3"></div>
+            </div>
+            <button id="simon-start-button">Start Game</button>
+        </div>
+
+        <!-- Rock Paper Scissors Game -->
+        <div id="rps-game" class="game-content hidden">
+            <h2>Rock Paper Scissors</h2>
+            <div id="rps-score" class="status-bar">Player: 0 - Computer: 0</div>
+            <div id="rps-status" class="status-bar">Choose your weapon!</div>
+            <div id="rps-results-display">
+                <span id="rps-player-choice"></span>
+                <span>vs</span>
+                <span id="rps-computer-choice"></span>
+            </div>
+            <div id="rps-player-choices">
+                <button class="rps-choice-btn" data-choice="rock">✊</button>
+                <button class="rps-choice-btn" data-choice="paper">✋</button>
+                <button class="rps-choice-btn" data-choice="scissors">✌️</button>
+            </div>
+            <button id="rps-reset-button">Reset Score</button>
+        </div>
+
+        <!-- Othello Game -->
+        <div id="othello-game" class="game-content hidden">
+            <h2>Othello (Reversi)</h2>
+            <div id="othello-status" class="status-bar"></div>
+            <div id="othello-board"></div>
+            <button id="othello-reset-button">New Game</button>
+        </div>
+
+        <!-- Lights Out Game -->
+        <div id="lightsout-game" class="game-content hidden">
+            <h2>Lights Out</h2>
+            <div id="lightsout-status" class="status-bar">Turn all the lights off! Moves: 0</div>
+            <div id="lightsout-board"></div>
+            <button id="lightsout-reset-button">New Puzzle</button>
+        </div>
+
+        <!-- Tic Tac Toe Game -->
+        <div id="tic-tac-toe-game" class="game-content hidden">
+            <h2>Tic Tac Toe</h2>
+            <div id="tic-tac-toe-status" class="status-bar">Player's Turn</div>
+            <div id="tic-tac-toe-board"></div>
+            <button id="tic-tac-toe-reset-button">Reset Game</button>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/connect-four.js"></script>
+    <script src="js/dots-and-boxes.js"></script>
+    <script src="js/nim-game.js"></script>
+    <script src="js/memory-game.js"></script>
+    <script src="js/mancala.js"></script>
+    <script src="js/sudoku.js"></script>
+    <script src="js/simon-says.js"></script>
+    <script src="js/rock-paper-scissors.js"></script>
+    <script src="js/othello.js"></script>
+    <script src="js/lights-out.js"></script>
+    <script src="js/tic-tac-toe.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const gameContents = document.querySelectorAll('.game-content');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const gameName = button.dataset.game;
+                    const gameId = gameName + '-game';
+
+                    // ตั้ง active ให้ปุ่ม
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // ซ่อนทุกเกม และแสดงเกมที่เลือก
+                    gameContents.forEach(game => {
+                        game.classList.toggle('hidden', game.id !== gameId);
+                    });
+
+                    // เรียกฟังก์ชัน reset ถ้ามี
+                    const resetFuncName = 'reset' + gameName.charAt(0).toUpperCase() + gameName.slice(1) + 'Game';
+                    if (typeof window[resetFuncName] === 'function') {
+                        window[resetFuncName]();
+                    }
+                });
+            });
+
+            // เรียกแสดงเกมแรก
+            document.querySelector('.nav-button[data-game="connect-four"]').click();
+        });
+    </script>
+</body>
+
+</html>
