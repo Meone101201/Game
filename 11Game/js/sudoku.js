@@ -125,10 +125,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return [solution1D, puzzle1D];
     }
+    
+    function startGame() {
+        // 1. สร้างโจทย์และเฉลยใหม่ทันที ไม่ต้องมีข้อความ "Generating..." คั่น
+        const [newSolution, newPuzzle] = generateSudoku(0.65); // ปรับค่านี้เพื่อเปลี่ยนความยาก
 
+        // 2. อัปเดตตัวแปรสถานะต่างๆ ของเกม
+        solution = newSolution;
+        puzzle = newPuzzle;
+        boardState = [...puzzle]; // คัดลอกโจทย์ไปเป็นสถานะเริ่มต้นของกระดาน
+        selectedNumber = null;
+        selectedCell = null;
+
+        // 3. อัปเดตข้อความสถานะให้พร้อมเล่นได้เลย
+        statusElement.textContent = "Select a number and fill the board.";
+        statusElement.style.color = 'black'; // ตั้งค่าสีข้อความกลับเป็นปกติ
+
+        // 4. วาดกระดานและแผงตัวเลขใหม่
+        // (ฟังก์ชัน renderBoard และ renderPalette จะเคลียร์ของเก่าออกเองอยู่แล้ว)
+        renderBoard();
+        renderPalette();
+}
     // --- สิ้นสุดส่วนของโค้ดสำหรับสร้าง Sudoku ---
 
-    function startGame() {
+/*     function startGame() {
         statusElement.textContent = "Generating a new puzzle...";
         statusElement.style.color = 'black';
         boardElement.innerHTML = ''; // เคลียร์บอร์ดระหว่างรอ
@@ -150,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderBoard();
             renderPalette();
         }, 50); // หน่วงเวลาเล็กน้อย
-    }
+    } */
     window.resetSudokuGame = startGame;
 
     function renderBoard() {
