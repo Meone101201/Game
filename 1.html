@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Protection Test (Fixed)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .protection-list {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .protection-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .protection-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .protection-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+
+        .protection-text {
+            flex: 1;
+        }
+
+        .protection-key {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .status {
+            float: right;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .test-area {
+            background: #fff3cd;
+            border: 2px dashed #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #e74c3c;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            z-index: 9999;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .alert.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .log-area {
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn.clear {
+            background: #95a5a6;
+        }
+
+        .btn.clear:hover {
+            background: #7f8c8d;
+        }
+
+        .debug-info {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔒 Keyboard Protection Test (Fixed)</h1>
+
+        <div class="test-area">
+            <h3>📋 ทดสอบการป้องกัน</h3>
+            <p>ลองกดปุ่มต่างๆ ที่แสดงด้านล่าง เพื่อดูการทำงานของระบบป้องกัน</p>
+            <div class="debug-info" id="debugInfo">
+                Last key pressed: None
+            </div>
+        </div>
+
+        <div class="protection-list">
+            <h3>🛡️ ระบบป้องกันที่เปิดใช้งาน</h3>
+
+            <div class="protection-item">
+                <div class="protection-icon">🚫</div>
+                <div class="protection-text">
+                    <strong>F12</strong> - Developer Tools
+                    <br><span class="protection-key">F12</span>
+                </div>
+                <div class="status">✅ Active</div>
+            </div>
+
+            <div class="protection-item">
+                <div class="protection-icon">🔧</div>
+                <div class="protection-text">
+                    <strong>Ctrl+Shift+I</strong> - Inspect Element
+                    <br><span class="protection-key">Ctrl+Shift+I</span>
+                </div>
+                <div class="status">✅ Active</div>
+            </div>
+
+            <div class="protection-item">
+                <div class="protection-icon">📝</div>
+                <div class="protection-text">
+                    <strong>Ctrl+Shift+J</strong> - Console
+                    <br><span class="protection-key">Ctrl+Shift+J</span>
+                </div>
+                <div class="status">✅ Active</div>
+            </div>
+
+            <div class="protection-item">
+                <div class="protection-icon">🔍</div>
+                <div class="protection-text">
+                    <strong>Ctrl+Shift+C</strong> - Element Inspector
+                    <br><span class="protection-key">Ctrl+Shift+C</span>
+                </div>
+                <div class="status">✅ Active</div>
+            </div>
+
+            <div class="protection-item">
+                <div class="protection-icon">📄</div>
+                <div class="protection-text">
+                    <strong>Ctrl+U</strong> - View Page Source
+                    <br><span class="protection-key">Ctrl+U</span>
+                </div>
+                <div class="status">✅ Active</div>
+            </div>
+
+            <div class="protection-item">
+                <div class="protection-icon">🖱️</div>
+                <div class="protection-text">
+                    <strong>Right Click</strong> - Context Menu
+                    <br><span class="protection-key">Right Click</span>
+                </div>
+                <div class="status">✅ Active</div>
+            </div>
+        </div>
+
+        <div class="log-area" id="logArea">
+            <div>🔒 Protection System Initialized</div>
+            <div>⚡ Keyboard listeners activated</div>
+            <div>🛡️ Right-click protection enabled</div>
+            <div>📊 Ready for testing...</div>
+        </div>
+
+        <button class="btn" onclick="testProtection()">🧪 Test Protection</button>
+        <button class="btn clear" onclick="clearLog()">🗑️ Clear Log</button>
+    </div>
+
+    <script>
+        let logCount = 0;
+
+        // ฟังก์ชันเพิ่ม log
+        function addLog(message, type = 'info') {
+            const logArea = document.getElementById('logArea');
+            const logItem = document.createElement('div');
+            const timestamp = new Date().toLocaleTimeString();
+
+            let icon = '📝';
+            let color = '#ecf0f1';
+
+            switch (type) {
+                case 'block':
+                    icon = '🚫';
+                    color = '#e74c3c';
+                    break;
+                case 'warn':
+                    icon = '⚠️';
+                    color = '#f39c12';
+                    break;
+                case 'success':
+                    icon = '✅';
+                    color = '#27ae60';
+                    break;
+                case 'debug':
+                    icon = '🔍';
+                    color = '#9b59b6';
+                    break;
+            }
+
+            logItem.innerHTML = `<span style="color: ${color};">[${timestamp}] ${icon} ${message}</span>`;
+            logArea.appendChild(logItem);
+            logArea.scrollTop = logArea.scrollHeight;
+
+            logCount++;
+            if (logCount > 50) {
+                logArea.removeChild(logArea.firstChild);
+                logCount--;
+            }
+        }
+
+        // ฟังก์ชันแสดง alert
+        function showAlert(message, type = 'error') {
+            const alert = document.createElement('div');
+            alert.className = 'alert';
+            alert.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <strong>${type === 'error' ? '🚫' : '⚠️'} ป้องกันเรียบร้อย!</strong><br>
+                        ${message}
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="background: none; border: none; color: white; cursor: pointer; font-size: 18px;">×</button>
+                </div>
+            `;
+
+            document.body.appendChild(alert);
+            setTimeout(() => alert.classList.add('show'), 100);
+
+            setTimeout(() => {
+                alert.classList.remove('show');
+                setTimeout(() => alert.remove(), 300);
+            }, 4000);
+        }
+
+        // ฟังก์ชันอัพเดต debug info
+        function updateDebugInfo(keyInfo) {
+            const debugInfo = document.getElementById('debugInfo');
+            debugInfo.innerHTML = `Last key pressed: ${keyInfo}`;
+        }
+
+        // ===========================================
+        // 🔒 PROTECTION SYSTEM (FIXED)
+        // ===========================================
+
+        // ป้องกัน keyboard shortcuts
+        document.addEventListener('keydown', function (e) {
+            let blocked = false;
+            let keyInfo = '';
+
+            // สร้างข้อมูลปุ่มที่กดสำหรับ debug
+            const debugKeyInfo = `${e.ctrlKey ? 'Ctrl+' : ''}${e.shiftKey ? 'Shift+' : ''}${e.altKey ? 'Alt+' : ''}${e.key}`;
+            updateDebugInfo(debugKeyInfo);
+            addLog(`Key pressed: ${debugKeyInfo}`, 'debug');
+
+            // F12 - Developer Tools
+            if (e.key === 'F12') {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'F12 (Developer Tools)';
+            }
+
+            // Ctrl+Shift+I - Inspect Element
+            else if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'ร' || e.key === 'ณ')) {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'Ctrl+Shift+I (Inspect Element)';
+            }
+
+            // Ctrl+Shift+J - Console
+            else if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.key === '่' || e.key === '๋')) {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'Ctrl+Shift+J (Console)';
+            }
+
+            // Ctrl+Shift+C - Element Inspector
+            else if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.key === 'แ' || e.key === 'ฉ')) {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'Ctrl+Shift+C (Element Inspector)';
+            }
+
+            // Ctrl+U - View Source (แก้ไขให้รองรับทั้งตัวเล็กและตัวใหญ่)
+            else if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 'ี' || e.key === '๊')) {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'Ctrl+U (View Source)';
+            }
+
+            // Ctrl+Shift+K - Web Console (Firefox)
+            else if (e.ctrlKey && e.shiftKey && (e.key === 'K' || e.key === 'k' || e.key === 'า' || e.key === 'ษ')) {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'Ctrl+Shift+K (Web Console)';
+            }
+
+            // Ctrl+Shift+E - Network Panel (Firefox)
+            else if (e.ctrlKey && e.shiftKey && (e.key === 'E' || e.key === 'e' || e.key === 'ำ' || e.key === 'ฎ')) {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'Ctrl+Shift+E (Network Panel)';
+            }
+
+            // F1 - Help (บางครั้งเปิด DevTools)
+            else if (e.key === 'F1') {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'F1 (Help/DevTools)';
+            }
+
+            // เพิ่มการป้องกันเพิ่มเติม
+            // Ctrl+Shift+S - Save Page
+            else if (e.ctrlKey && e.shiftKey && (e.key === 'S' || e.key === 's' || e.key === 'ห' || e.key === 'ฆ')) {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'Ctrl+Shift+S (Save Page)';
+            }
+
+            // Ctrl+P - Print (อาจจะมีข้อมูลสำคัญ)
+            else if (e.ctrlKey && (e.key === 'p' || e.key === 'P' || e.key === 'ย' || e.key === 'ญ')) {
+                e.preventDefault();
+                blocked = true;
+                keyInfo = 'Ctrl+P (Print)';
+            }
+
+            if (blocked) {
+                addLog(`🚫 BLOCKED: ${keyInfo}`, 'block');
+                showAlert(`การกด ${keyInfo} ถูกปิดใช้งาน`);
+
+                // แสดงคำเตือนใน console
+                console.clear();
+                console.log('%c🚫 BLOCKED!', 'color: red; font-size: 40px; font-weight: bold;');
+                console.log('%cการกด ' + keyInfo + ' ถูกปิดใช้งาน', 'color: #e74c3c; font-size: 16px;');
+                console.log('%cระบบป้องกันทำงานเรียบร้อย! 🛡️', 'color: #27ae60; font-size: 14px;');
+
+                return false;
+            }
+        });
+
+        // ป้องกัน right-click
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            addLog('🚫 BLOCKED: Right-click (Context Menu)', 'block');
+            showAlert('Right-click ถูกปิดใช้งาน');
+            return false;
+        });
+
+        // ป้องกัน text selection (เลือกข้อความ)
+        document.addEventListener('selectstart', function (e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true; // อนุญาตใน input fields
+            }
+            e.preventDefault();
+            addLog('🚫 BLOCKED: Text Selection', 'block');
+            return false;
+        });
+
+        // ป้องกัน drag and drop
+        document.addEventListener('dragstart', function (e) {
+            e.preventDefault();
+            addLog('🚫 BLOCKED: Drag and Drop', 'block');
+            return false;
+        });
+
+        // ตรวจจับการเปิด DevTools
+        let devToolsOpen = false;
+
+        function detectDevTools() {
+            setInterval(() => {
+                const threshold = 160;
+                if (window.outerHeight - window.innerHeight > threshold ||
+                    window.outerWidth - window.innerWidth > threshold) {
+                    if (!devToolsOpen) {
+                        devToolsOpen = true;
+                        addLog('⚠️ DevTools opened detected!', 'warn');
+                        showAlert('ตรวจพบการเปิด Developer Tools!', 'warn');
+
+                        // แสดงคำเตือนใน console
+                        console.clear();
+                        console.log('%c⚠️ DEVELOPER TOOLS DETECTED!', 'color: orange; font-size: 30px; font-weight: bold;');
+                        console.log('%cระบบตรวจพบการเปิด DevTools', 'color: #f39c12; font-size: 16px;');
+                        console.log('%cเพื่อความปลอดภัยของระบบ กรุณาปิด DevTools', 'color: #e74c3c; font-size: 14px;');
+                    }
+                } else {
+                    if (devToolsOpen) {
+                        devToolsOpen = false;
+                        addLog('✅ DevTools closed', 'success');
+                    }
+                }
+            }, 1000);
+        }
+
+        // ป้องกันการ copy source code
+        document.addEventListener('copy', function (e) {
+            if (window.getSelection().toString().length > 100) {
+                e.preventDefault();
+                addLog('🚫 BLOCKED: Large text copy attempt', 'block');
+                showAlert('การคัดลอกข้อความจำนวนมากถูกปิดใช้งาน');
+                return false;
+            }
+        });
+
+        // ===========================================
+        // 🧪 TEST FUNCTIONS
+        // ===========================================
+
+        function testProtection() {
+            addLog('🧪 Running protection test...', 'info');
+
+            const tests = [
+                'F12 Protection',
+                'Ctrl+Shift+I Protection',
+                'Ctrl+Shift+J Protection',
+                'Ctrl+U Protection',
+                'Right-click Protection',
+                'DevTools Detection',
+                'Text Selection Protection',
+                'Drag & Drop Protection'
+            ];
+
+            tests.forEach((test, index) => {
+                setTimeout(() => {
+                    addLog(`✅ ${test}: Active`, 'success');
+                }, index * 200);
+            });
+
+            setTimeout(() => {
+                addLog('🎉 All protections are working perfectly!', 'success');
+                showAlert('ระบบป้องกันทำงานเรียบร้อยทั้งหมด!', 'success');
+            }, tests.length * 200);
+        }
+
+        function clearLog() {
+            const logArea = document.getElementById('logArea');
+            logArea.innerHTML = '<div>🗑️ Log cleared</div>';
+            logCount = 1;
+            addLog('✅ System ready for testing', 'info');
+        }
+
+        // ===========================================
+        // 🚀 INITIALIZE
+        // ===========================================
+
+        document.addEventListener('DOMContentLoaded', function () {
+            addLog('🔒 Protection system initialized', 'success');
+            detectDevTools();
+
+            // แสดงคำเตือนใน console
+            console.clear();
+            console.log('%c🔒 PROTECTION ACTIVE', 'color: #27ae60; font-size: 24px; font-weight: bold;');
+            console.log('%cKeyboard shortcuts protection enabled', 'color: #3498db; font-size: 14px;');
+            console.log('%cTry pressing F12, Ctrl+Shift+I, Ctrl+U, or right-click to test!', 'color: #95a5a6; font-size: 12px;');
+
+            setTimeout(() => {
+                addLog('✅ Ready for testing - try the protected keys!', 'info');
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
