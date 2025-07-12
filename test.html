@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ประวัติส่วนตัว - นางสาว ศริณพร โนนทิง</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #3b82f6 50%, #1e40af 75%, #1e3a8a 100%);
+      font-family: 'Noto Sans Thai', sans-serif;
+      min-height: 100vh;
+      padding: 20px 0;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background Elements */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(30, 64, 175, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 80%, rgba(37, 99, 235, 0.3) 0%, transparent 50%);
+      animation: backgroundMove 20s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes backgroundMove {
+      0%, 100% { 
+        background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(30, 64, 175, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 80%, rgba(37, 99, 235, 0.3) 0%, transparent 50%);
+      }
+      50% { 
+        background: radial-gradient(circle at 80% 30%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 20% 70%, rgba(30, 64, 175, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 60% 20%, rgba(37, 99, 235, 0.3) 0%, transparent 50%);
+      }
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-card {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(30px);
+      border-radius: 40px;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25),
+                  0 20px 50px rgba(30, 64, 175, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      position: relative;
+    }
+
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #1e40af, #2563eb, #3b82f6);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #3b82f6 50%, #1e40af 75%, #1e3a8a 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.1), transparent);
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .profile-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      margin: 0 auto 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      color: #3b82f6;
+      border: 10px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3),
+                  0 15px 30px rgba(30, 64, 175, 0.4),
+                  inset 0 -5px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .name {
+      font-size: 2.8em;
+      font-weight: 800;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title {
+      font-size: 1.4em;
+      opacity: 0.95;
+      font-weight: 400;
+      position: relative;
+      z-index: 2;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .content {
+      padding: 50px 40px;
+      background: linear-gradient(180deg, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 0.9) 100%);
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      color: #1e40af;
+      font-size: 2.2em;
+      margin-bottom: 30px;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 15px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 5px;
+      background: linear-gradient(90deg, #3b82f6, #1e40af, #2563eb);
+      border-radius: 3px;
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+    }
+
+    .info-item {
+      background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+      padding: 35px;
+      border-radius: 25px;
+      border: 1px solid rgba(59, 130, 246, 0.1);
+      margin-bottom: 25px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08),
+                  0 8px 20px rgba(59, 130, 246, 0.1),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(180deg, #3b82f6, #1e40af, #2563eb);
+      border-radius: 0 3px 3px 0;
+    }
+
+    .info-item::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .info-item strong {
+      color: #1e40af;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-item h4 {
+      color: #2563eb;
+      margin: 20px 0 15px 0;
+      font-size: 1.15em;
+      font-weight: 600;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .info-item h4::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      border-radius: 50%;
+    }
+
+    .contact-info a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    .contact-info a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #1e40af);
+      transition: width 0.3s ease;
+    }
+
+    .contact-info a:hover {
+      color: #1e40af;
+    }
+
+    .contact-info a:hover::after {
+      width: 100%;
+    }
+
+    .info-item div {
+      line-height: 1.9;
+      color: #475569;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Floating Elements */
+    .floating-element {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(30, 64, 175, 0.1));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-element:nth-child(1) {
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .floating-element:nth-child(2) {
+      top: 20%;
+      right: 10%;
+      animation-delay: 2s;
+    }
+
+    .floating-element:nth-child(3) {
+      bottom: 20%;
+      left: 15%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .header {
+        padding: 50px 20px;
+      }
+
+      .content {
+        padding: 35px 25px;
+      }
+
+      .name {
+        font-size: 2.2em;
+      }
+
+      .title {
+        font-size: 1.2em;
+      }
+
+      .section h2 {
+        font-size: 1.8em;
+      }
+
+      .profile-image {
+        width: 160px;
+        height: 160px;
+        font-size: 65px;
+      }
+
+      .info-item {
+        padding: 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .name {
+        font-size: 2em;
+      }
+
+      .section h2 {
+        font-size: 1.6em;
+      }
+
+      .profile-image {
+        width: 140px;
+        height: 140px;
+        font-size: 55px;
+      }
+
+      .info-item {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-element"></div>
+  <div class="floating-element"></div>
+  <div class="floating-element"></div>
+  
+  <div class="container">
+    <div class="profile-card">
+      <div class="header">
+        <div class="profile-image">
+          <img src="cat.jpg" alt="Profile Picture">
+        </div>
+        <h1 class="name">นางสาว ศริณพร โนนทิง</h1>
+        <p class="title">นักศึกษาคณะวิทยาศาสตร์และเทคโนโลยี</p>
+      </div>
+
+      <div class="content">
+        <div class="section">
+          <h2>ข้อมูลส่วนตัว</h2>
+          <div class="info-item">
+            <strong>ประวัติส่วนตัว</strong>
+            <div>
+              ชื่อ นางสาว ศริณพร โนนทิง<br>
+              ชื่อเล่น เชียร์ <br>
+              เกิดวันที่ 13 มกราคม 2548 <br>
+              สัญชาติ ไทย <br>
+              อายุ 20ปี <br>
+              ที่อยู่ 59/39 จังหวัดนนทบุรี อำเภอเมืองนนทบุรี ถนนนนทบุรี ตำบลท่าทราย 11000
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <strong>ประวัติการศึกษา</strong>
+            <div style="margin-top: 10px;">
+              <strong>ระดับประกาศนียบัตรวิชาชีพ:</strong> สำเร็จจากการศึกษาจาก โรงเรียนนนทบุรีวิทยาลัย <br><br>
+              <strong>ระดับปริญญาตรี:</strong> กำลังศึกษาอยู่ที่ มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ <br>
+              สาขา วิทยาการคอมพิวเตอร์
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <strong>ทักษะและความสามารถ</strong>
+            <div style="margin-top: 10px;">
+              <h4>การเขียนโปรแกรมและพัฒนาเว็บไซต์</h4>
+              • เข้าใจพื้นฐาน HTML, CSS <br>
+              • Database Management <br>
+              • Python Programming <br>
+              • เข้าใจพื้นฐาน UX/UI Design<br>
+              • ศิลปะและการออกแบบ การวาดรูป งานศิลปะ <br>
+              • ค้นคว้าและวิเคราะห์<br><br>
+              
+              <h4>คุณสมบัติเด่น</h4>
+              • พร้อมเรียนรู้เทคโนโลยีใหม่ๆ<br>
+              • มีความสนใจพื้นฐานด้านคอมพิวเตอร์ และเทคโนโลยีสารสนเทศ<br><br>
+              
+              <h4>เป้าหมายในอนาคต</h4>
+              • <strong>เป้าหมายระยะสั้น:</strong> สำเร็จการศึกษาระดับปริญญาตรี และพัฒนาทักษะการเขียนโปรแกรมให้มีความชำนาญ<br>
+              • <strong>เป้าหมายระยะยาว:</strong> ทำงานในสายงานเทคโนโลยีสารสนเทศและมีส่วนร่วมในการพัฒนานวัตกรรมที่เป็นประโยชน์ต่อสังคม
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <strong>ผลงานและโครงการ</strong>
+            <div style="margin-top: 10px;">
+              • แสดงข้อความบนหน้าจอ LCD ผ่านบอร์ด ESP32 โดยควบคุมผ่านปุ่มในแอป Blynk IoT บนมือถือ<br>
+              • ออกแบบฐานข้อมูลพื้นฐาน Database การทำงานของไอศครีม<br>
+              • ออกแบบ UX/UI แอปพลิเคชันเพื่อเรียนรู้สำหรับเด็กเล็ก
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <strong>ช่องทางติดต่อ</strong>
+            <div class="contact-info" style="margin-top: 10px;">
+              <strong>Facebook:</strong> <a href="https://www.facebook.com/cheer.cheer.556563?locale=th_TH" target="_blank">Cheer Cheer</a><br>
+              <strong>Instagram:</strong> <a href="https://www.instagram.com/cheer_r2005/" target="_blank">cheer_r2005</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
